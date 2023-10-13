@@ -27,6 +27,15 @@ var mos = {
 	config: {
 		lang: document.documentElement.lang
 	},
+	render: function() {
+		onmodified();
+	},
+	addLangStrings: function(lang, strings) {
+		for(string in strings) {
+			mos.langStrings[lang][string] = strings[string];
+		}
+
+
 	}
 };
 
