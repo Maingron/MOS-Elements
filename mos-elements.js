@@ -3,7 +3,27 @@ var mos = {
 	paths: {
 		"user": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHja40qtyEzjUgADEwMuE1NzCzNLMzMDIDCxNLE0SgQyLAwgwNDAwNLCwsjACCFmmGiAAkxSzAyB+lO5zMzNjczSgAwAxXsT+bDGzF4AAABgelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeNo9irENgDAMBHtPwQh+x3njcSAEiY6C/YVFwV3zJ71c9zNk+WgubXXz9EO9/AExFH2r2bBb96g2ZHV9CSYnI4wnp6q881sSN7WlVNoAAAAMUExURf//AHcRAP8AAFX/VTuOVW4AAAAlSURBVAjXY2BgYA2FECASQjAGsDowgAHzAeYDEAIrWLUKQiAAAAeEBwnbBasdAAAAAElFTkSuQmCC"
 	},
-	iofsprefixes: ["iofs:", "#iofs:"]
+	iofsprefixes: ["iofs:", "#iofs:"],
+	langStrings: {
+		"en": {
+			"Good evening": "Good evening",
+			"Good morning": "Good morning",
+			"The current time is": "The current time is",
+			"The title of the website is": "The title of the website is"
+		},
+		"de": {
+			"Good evening": "Guten Abend",
+			"Good morning": "Guten Morgen",
+			"The current time is": "Die aktuelle Zeit ist",
+			"The title of the website is": "Der Titel der Webseite ist"
+		},
+		"fr": {
+			"Good evening": "Bonsoir",
+			"Good morning": "Bonjour",
+			"The current time is": "L'heure actuelle est",
+			"The title of the website is": "Le titre du site est"
+		}
+	}
 };
 // when document.body changes (event listener)
 
@@ -24,7 +44,7 @@ function onmodified() {
 }
 
 function getMosElements(target = document.body) {
-	let tagNameList = ["mos-img", "mos-something", "mos-debug", "mos-time"];
+	let tagNameList = ["mos-img", "mos-something", "mos-debug", "mos-time", "mos-lang", "mos-docinfo"];
 
 	var result = [];
 
@@ -64,6 +84,14 @@ function getElementValue(element) {
 
 	if(element.tagName == "MOS-TIME") {
 		result = mos_time(element);
+	}
+
+	if(element.tagName == "MOS-LANG") {
+		result = mos_lang(element);
+	}
+
+	if(element.tagName == "MOS-DOCINFO") {
+		result = mos_docinfo(element);
 	}
 
 	return result;
@@ -116,7 +144,12 @@ function getElementValue(element) {
 				element.parentNode.appendChild(newElement);
 			}
 			return newElement;
-		}
+		} else if(type == "head") {
+			let newElement = document.createElement("div");
+			newElement.style.background = "gray";
+			newElement.innerText = document.head.innerHTML;
+			return newElement;
+	}
 
 
 	}
@@ -126,6 +159,26 @@ function getElementValue(element) {
 		let timeResult = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
 		newElement.innerHTML = timeResult
 		return newElement;
+	}
+
+	function mos_lang(element) {
+		let newElement = document.createElement("span");
+		let text = element.getAttribute("text");
+		// if string exists, else return text
+		if(mos.langStrings[document.documentElement.lang] && mos.langStrings[document.documentElement.lang][text]) {
+			newElement.innerHTML = mos.langStrings[document.documentElement.lang][text];
+		} else {
+			newElement.innerHTML = text;
+		}
+		return newElement;
+	}
+
+	function mos_docinfo(element) {
+		if(element.getAttribute("type") == "title") {
+			let newElement = document.createElement("span");
+			newElement.innerHTML = document.title;
+			return newElement;
+		}
 	}
 	
 
