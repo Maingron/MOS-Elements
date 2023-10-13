@@ -23,6 +23,10 @@ var mos = {
 			"The current time is": "L'heure actuelle est",
 			"The title of the website is": "Le titre du site est"
 		}
+	},
+	config: {
+		lang: document.documentElement.lang
+	},
 	}
 };
 
@@ -178,8 +182,8 @@ function getElementValue(element) {
 			text = element.getAttribute("text");
 		}
 		// if string exists, else return text
-		if(mos.langStrings[document.documentElement.lang] && mos.langStrings[document.documentElement.lang][text]) {
-			newElement.innerHTML = mos.langStrings[document.documentElement.lang][text];
+		if(mos.langStrings[mos.config.lang] && mos.langStrings[mos.config.lang][text]) {
+			newElement.innerHTML = mos.langStrings[mos.config.lang][text];
 		} else {
 			newElement.innerHTML = text;
 		}
