@@ -179,6 +179,9 @@ function getElementValue(element) {
 			text = eval(varName);
 			console.log(text);
 		} else {
+			if(!element.getAttribute("text")) {
+				element.setAttribute("text", element.innerHTML);
+			}
 			text = element.getAttribute("text");
 		}
 		// if string exists, else return text
