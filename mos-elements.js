@@ -25,6 +25,10 @@ var mos = {
 		}
 	}
 };
+
+var something = {
+	bla: "Good evening"
+}
 // when document.body changes (event listener)
 
 // mutation observer on document body
@@ -163,7 +167,16 @@ function getElementValue(element) {
 
 	function mos_lang(element) {
 		let newElement = document.createElement("span");
-		let text = element.getAttribute("text");
+		let text;
+		if(element.getAttribute("var")) {
+			// text = get variable
+			let varName = element.getAttribute("var");
+			// if variable exists, else return text
+			text = eval(varName);
+			console.log(text);
+		} else {
+			text = element.getAttribute("text");
+		}
 		// if string exists, else return text
 		if(mos.langStrings[document.documentElement.lang] && mos.langStrings[document.documentElement.lang][text]) {
 			newElement.innerHTML = mos.langStrings[document.documentElement.lang][text];
