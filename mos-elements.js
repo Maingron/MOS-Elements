@@ -1,4 +1,4 @@
-var mos = {
+var mosElements = {
 	elements: [],
 	paths: {
 		"user": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHja40qtyEzjUgADEwMuE1NzCzNLMzMDIDCxNLE0SgQyLAwgwNDAwNLCwsjACCFmmGiAAkxSzAyB+lO5zMzNjczSgAwAxXsT+bDGzF4AAABgelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeNo9irENgDAMBHtPwQh+x3njcSAEiY6C/YVFwV3zJ71c9zNk+WgubXXz9EO9/AExFH2r2bBb96g2ZHV9CSYnI4wnp6q881sSN7WlVNoAAAAMUExURf//AHcRAP8AAFX/VTuOVW4AAAAlSURBVAjXY2BgYA2FECASQjAGsDowgAHzAeYDEAIrWLUKQiAAAAeEBwnbBasdAAAAAElFTkSuQmCC"
@@ -38,6 +38,8 @@ var mos = {
 
 	}
 };
+
+var mos = mosElements; // deprecated
 
 var something = {
 	bla: "Good evening"
