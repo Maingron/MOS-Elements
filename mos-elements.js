@@ -120,6 +120,8 @@ function getElementValue(element) {
 		if(element.getAttribute("src").startsWith("mos-")) {
 			newElement.src = handlePath(element.getAttribute("src"));
 		} else if (mos.iofsprefixes.includes(element.getAttribute("src").split(":")[0] + ":")) {
+			newElement.src = loadfile(element.getAttribute("src").split(":")[1] + ":" + element.getAttribute("src").split(":")[2], 0);
+
 		} else {
 			newElement.src = handlePath(element.getAttribute("src"));
 		}
@@ -254,6 +256,16 @@ function mod_hook(moduleName, path) {
 	}
 }
 
+// if mainos, use some of those variables
+if(system?.osDetails?.name.toLowerCase() == "mainos") {
+	mos.paths.user = "iofs:" + system.paths.icons.system + "usericons/guest.svg";
+	mos.config.lang = system.user.settings.language;
+
+	var newScript = document.createElement("script");
+	newScript.src = "lang.js";
+	document.head.appendChild(newScript);
+	
+}
 
 
 onmodified();
